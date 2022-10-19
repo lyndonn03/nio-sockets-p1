@@ -8,7 +8,7 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
-public class App {
+public class ServerApp {
     public static void main(String[] args) throws Exception {
 
         ServerSocketChannel serverSocket = ServerSocketChannel.open();
