@@ -77,6 +77,10 @@ public class App {
             buffIn.compact();
             clientSocketKey.interestOps(SelectionKey.OP_WRITE);
 
+        } else {
+            System.out.println("SHIT");
+            socketChannel.close();
+            clientSocketKey.cancel();
         }
 
     }

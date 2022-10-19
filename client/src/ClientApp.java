@@ -7,36 +7,39 @@ public class ClientApp {
     public static void main(String[] args) throws Exception {
 
         Scanner scanner = new Scanner(System.in);
-        SocketChannel socketChannel = SocketChannel.open();
-        socketChannel.connect(new InetSocketAddress("localhost", 9090));
-
-        if (socketChannel.isConnected()) {
-            System.out.println("Client is connected");
-        }
-
-        System.out.print("Enter your request: ");
-        String msg = scanner.nextLine();
-
+        SocketChannel socketChannel = null;
         ByteBuffer buffer = ByteBuffer.allocate(1024);
-        buffer.clear();
-        buffer.put(msg.getBytes());
-        buffer.flip();
 
-        while(buffer.hasRemaining()) {
-            socketChannel.write(buffer);
+        while (true) {
+            System.out.print("Enter your request: ");
+            String msg = scanner.nextLine();
+            if(msg.isEmpty()) {
+                System.out.println("Message must not be empty.");
+                continue;
+            }
+            
+            buffer.clear();
+            buffer.put(msg.getBytes());
+            buffer.flip();
+            socketChannel = SocketChannel.open();
+            socketChannel.connect(new InetSocketAddress("localhost", 9090));
+
+            if (socketChannel.isConnected())
+                System.out.println("Client is connected");
+
+            while (buffer.hasRemaining())
+                socketChannel.write(buffer);
+
+            buffer.compact();
+            socketChannel.read(buffer);
+            buffer.flip();
+
+            while (buffer.hasRemaining())
+                System.out.print((char) buffer.get());
+            System.out.println();
+
+            socketChannel.close();
         }
-
-        buffer.compact();
-
-        socketChannel.read(buffer);
-
-        buffer.flip();
-
-        while (buffer.hasRemaining())
-            System.out.print((char) buffer.get());
-        System.out.println();
-
-        socketChannel.close();
 
     }
 }
