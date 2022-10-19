@@ -56,49 +56,4 @@ public class ServerApp {
 
     }
 
-    // private static void read(SelectionKey clientSocketKey) throws IOException {
-
-    //     ByteBuffer buffIn = ByteBuffer.allocate(1024);
-    //     SocketChannel socketChannel = (SocketChannel) clientSocketKey.channel();
-    //     int bytesRead = socketChannel.read(buffIn);
-
-    //     if (bytesRead == -1) {
-    //         socketChannel.close();
-    //         return;
-    //     }
-
-    //     if (bytesRead > 0) {
-    //         buffIn.flip();
-    //         buffIn.mark();
-
-    //         while (buffIn.hasRemaining())
-    //             System.out.print((char) buffIn.get());
-    //         System.out.println();
-
-    //         buffIn.compact();
-    //         clientSocketKey.interestOps(SelectionKey.OP_WRITE);
-
-    //     } else {
-    //         System.out.println("SHIT");
-    //         socketChannel.close();
-    //         clientSocketKey.cancel();
-    //     }
-
-    // }
-
-    // private static void write(SelectionKey clientSocketKey) throws IOException {
-
-    //     ByteBuffer buffOut = ByteBuffer.allocate(1024);
-    //     buffOut.put("Here is my response".getBytes());
-    //     buffOut.flip();
-    //     SocketChannel socketChannel = (SocketChannel) clientSocketKey.channel();
-
-    //     while (buffOut.hasRemaining())
-    //         socketChannel.write(buffOut);
-
-    //     socketChannel.close();
-    //     clientSocketKey.cancel();
-
-    // }
-
 }
